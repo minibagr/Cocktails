@@ -4,9 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
-        <title>Koktejly</title>
+        <title>Cocktails</title>
     </head>
-    <body>
+    <body id="no-overflow">
         <nav>
             <div id="search-div">
                 <input
@@ -14,13 +14,17 @@
                     name="search"
                     id="search"
                     value=""
-                    placeholder="Vyhledat koktejl"
+                    placeholder="Search cocktail"
                 />
             </div>
             <div id="filters">
-                <select name="ingredients" id="ingredients"></select>
+                <p>Ingredients</p>
+                <div id="ingredients-div"></div>
             </div>
         </nav>
+        <div id="loading">
+            <h1>Loading...</h1>
+        </div>
         <div id="data"></div>
         <script type="module" src="script.js"></script>
     </body>
