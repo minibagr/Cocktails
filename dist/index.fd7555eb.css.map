@@ -1,0 +1,14 @@
+{
+    "mappings": "ACAA,2CAMA,0BAKA,mDAMA,uHAQA,6EAOA,4CAKA,0CAKA,gHASA,mBAIA",
+    "sources": [
+        "index.fd7555eb.css",
+        "style.css"
+    ],
+    "sourcesContent": [
+        "* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n:root {\n  --nav-color: #ffd269;\n}\n\nnav {\n  background-color: var(--nav-color);\n  padding: 20px;\n}\n\n#data {\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 1rem;\n  max-width: 1200px;\n  margin: 5rem auto;\n  display: grid;\n}\n\n#data img {\n  aspect-ratio: 16 / 9;\n  object-fit: contain;\n  width: 100%;\n  margin-bottom: 10px;\n}\n\n#data h1 {\n  text-align: center;\n  font-size: 1.7rem;\n}\n\n#data p {\n  text-align: center;\n  font-size: .8rem;\n}\n\n#data .show {\n  cursor: pointer;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  gap: 5px;\n  display: flex;\n}\n\n.none {\n  display: none;\n}\n\n#data div:hover > img {\n  opacity: .5;\n}\n/*# sourceMappingURL=index.fd7555eb.css.map */\n",
+        "* {\r\n    box-sizing: border-box;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n:root {\r\n    --nav-color: #ffd269;\r\n}\r\n\r\n/* NAVIGACE */\r\nnav {\r\n    background-color: var(--nav-color);\r\n    padding: 20px;\r\n}\r\n\r\n/* DATA */\r\n#data {\r\n    max-width: 1200px;\r\n    margin: 5rem auto;\r\n    display: grid;\r\n    gap: 1rem;\r\n    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\r\n}\r\n\r\n#data img {\r\n    margin-bottom: 10px;\r\n    width: 100%;\r\n    aspect-ratio: 16/9;\r\n    object-fit: contain;\r\n}\r\n\r\n#data h1 {\r\n    font-size: 1.7rem;\r\n    text-align: center;\r\n}\r\n\r\n#data p {\r\n    font-size: 0.8rem;\r\n    text-align: center;\r\n}\r\n\r\n#data .show {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    cursor: pointer;\r\n    gap: 5px;\r\n}\r\n\r\n.none {\r\n    display: none;\r\n}\r\n\r\n#data div:hover > img {\r\n    opacity: 0.5;\r\n}\r\n"
+    ],
+    "names": [],
+    "version": 3,
+    "file": "index.fd7555eb.css.map"
+}
