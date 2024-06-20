@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 50px 20px;
+}
+
+#data img {
+    margin-bottom: 10px;
+    width: 80%;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+}
+
+#data h1 {
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+#data p {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+#data div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

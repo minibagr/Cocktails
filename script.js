@@ -1,38 +1,70 @@
-const api_key = '&access_token=a7c8409d03789ad97c959ba39f4a5eeb&format=json'
-const BASE_URL = 'https://api.collection.cooperhewitt.org/rest/?'
-const TRACES = 'method=cooperhewitt.objects.traces.getList'
-const OBJECT_INFO = 'method=cooperhewitt.objects.getInfo'
+const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f='
 const data_div = document.getElementById('data')
 
+let alphabet = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z'
+]
+
 async function get_data() {
-    let traces = await fetch(BASE_URL + TRACES + api_key)
-        .then((response) => response.json())
-        .then((response) => response.traces)
-    get_objects(traces)
+    alphabet.forEach((letter) => {
+        bla(letter)
+    })
 }
 
-async function get_objects(traces) {
-    await traces.forEach((trace) => {
-        let object = fetch(
-            BASE_URL + OBJECT_INFO + api_key + '&object_id=' + trace.object_id
-        )
-            .then((response) => response.json())
-            .then((data) => create_blocks(data))
+async function bla(letter) {
+    await fetch(BASE_URL + letter)
+        .then((response) => response.json())
+        .then((data) => get_objects(data.drinks))
+}
+
+async function get_objects(data) {
+    data.forEach((drink) => {
+        create_blocks(drink)
     })
 }
 
 async function create_blocks(data) {
     const div = document.createElement('div')
     const p = document.createElement('p')
+    const h1 = document.createElement('h1')
     const img = document.createElement('img')
 
-    img.src = data.object.images[0].n.url
+    img.src = data.strDrinkThumb
+    h1.textContent = data.strDrink
+    p.textContent = data.strInstructions
 
-    p.textContent = data.object.title
+    console.log(data)
 
     div.appendChild(img)
+    div.appendChild(h1)
     div.appendChild(p)
 
+    div.setAttribute('id', data.objectID)
     data_div.appendChild(div)
 }
 
