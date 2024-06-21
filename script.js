@@ -6,6 +6,8 @@ const loading = document.getElementById('loading')
 const ingredients_div = document.getElementById('ingredients-div')
 
 let ingredients_list = []
+let ingredients_list_lower = []
+let filter_ingredients = []
 let data_list = []
 let alphabet = [
     'a',
@@ -36,9 +38,10 @@ let alphabet = [
     'z'
 ]
 
+// VYHLEDAVANI PODLE JMENA
 search.addEventListener('input', (e) => {
     e.preventDefault()
-    for (let k of data_list) {
+    for (const k of data_list) {
         if (
             !k.childNodes[1].textContent
                 .toLowerCase()
@@ -51,6 +54,68 @@ search.addEventListener('input', (e) => {
     }
 })
 
+// VYHLEDAVANI POMOCI INGREDIENCI
+function search_by_ingredients() {
+    for (const div of data_list) {
+        const ingredients_in_div = div.dataset.ingredients.split(',')
+        console.log(check_if_subarray(ingredients_in_div))
+        if (!check_if_subarray(ingredients_in_div)) {
+            div.setAttribute('class', 'cocktail none')
+        } else {
+            div.setAttribute('class', 'cocktail')
+        }
+    }
+}
+
+// ZJISTENI ZDA JE POLE
+function check_if_subarray(ingredients_in_div) {
+    ingredients_in_div = ingredients_in_div.map((ingredient) =>
+        ingredient.toLowerCase()
+    )
+
+    return filter_ingredients.every((ingredient) => {
+        return ingredients_in_div.includes(ingredient)
+    })
+}
+
+// PRIDANI INGREDIENCI DO POLE S FILTREM
+function add_ingredient_to_filter(ingredient) {
+    ingredient.classList.toggle('selected')
+
+    if (ingredient.classList.contains('selected')) {
+        filter_ingredients.push(ingredient.textContent.toLowerCase())
+    } else {
+        let i = filter_ingredients.indexOf(ingredient.textContent.toLowerCase())
+        if (i !== -1) {
+            filter_ingredients.splice(i, 1)
+        }
+    }
+
+    console.log(filter_ingredients)
+
+    search_by_ingredients()
+}
+
+// VYTVORENI HTML ELEMENTU PRO INGREDIENCE
+function create_ingredients() {
+    ingredients_list = ingredients_list.sort()
+    ingredients_list = ingredients_list.splice(1, ingredients_list.length)
+    for (const ingredient of ingredients_list) {
+        const p = document.createElement('p')
+
+        p.textContent = ingredient
+
+        p.addEventListener('click', () => {
+            add_ingredient_to_filter(p)
+        })
+
+        p.setAttribute('class', 'ingredient')
+
+        ingredients_div.appendChild(p)
+    }
+}
+
+// ZISKANI DAT Z API
 async function get_data() {
     for await (const letter of alphabet) {
         await fetch(BASE_URL + letter)
@@ -65,11 +130,12 @@ async function get_data() {
 }
 
 async function get_objects(data) {
-    await data.forEach(async (drink) => {
+    data.forEach(async (drink) => {
         create_blocks(drink)
     })
 }
 
+// VYTVORENI
 async function create_blocks(data) {
     const div = document.createElement('div')
     const h1 = document.createElement('h1')
@@ -86,28 +152,11 @@ async function create_blocks(data) {
     div.appendChild(h1)
 
     div.setAttribute('id', data.idDrink)
-    div.setAttribute('class', 'cocktail show')
+    div.setAttribute('class', 'cocktail')
     data_div.appendChild(div)
 }
 
-function create_ingredients() {
-    ingredients_list = ingredients_list.sort()
-    ingredients_list = ingredients_list.splice(1, ingredients_list.length)
-    for (const ingredient of ingredients_list) {
-        const p = document.createElement('p')
-
-        p.textContent = ingredient
-
-        p.addEventListener('click', (e) => {
-            p.classList.toggle('selected')
-        })
-
-        p.setAttribute('class', 'ingredient')
-
-        ingredients_div.appendChild(p)
-    }
-}
-
+// ZISKANI INGREDIENCI Z API
 function get_ingredients(data) {
     let ingredients = ''
     for (let i = 1; i <= 15; i++) {
@@ -115,8 +164,9 @@ function get_ingredients(data) {
         if (ingredient !== null) {
             ingredients += ingredient + ','
 
-            if (!ingredients_list.includes(ingredient)) {
+            if (!ingredients_list_lower.includes(ingredient.toLowerCase())) {
                 ingredients_list.push(ingredient)
+                ingredients_list_lower.push(ingredient.toLowerCase())
             }
             continue
         }
@@ -125,6 +175,7 @@ function get_ingredients(data) {
     return ingredients.slice(0, ingredients.length - 1)
 }
 
+// VYTVORENI POLE SE VSEMI
 async function create_list() {
     data_list = document.getElementsByClassName('cocktail')
     search.value = ''
