@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -18,13 +18,25 @@
                 />
             </div>
             <div id="filters">
-                <p>Ingredients</p>
-                <div id="ingredients-div"></div>
+                <p id="ingredients">Ingredients</p>
+                <div id="ingredients-div" class="none">
+                    <div id="ingredients-finding">
+                        <input
+                            type="text"
+                            name="search"
+                            id="search-ingredients"
+                            value=""
+                            placeholder="Search ingredient"
+                        />
+                        <p id="apply">Apply</p>
+                    </div>
+                </div>
             </div>
         </nav>
         <div id="loading">
             <h1>Loading...</h1>
         </div>
+        <div id="arrow-up"></div>
         <div id="data"></div>
         <script type="module" src="script.js"></script>
     </body>
