@@ -42,32 +42,53 @@ let alphabet = [
 ];
 
 let searching = false;
+let filtering = false;
 
 // ZOBRAZENI FILTRU PO KLIKNUTI NA TLACITKO INGREDIENCE A NAOPAK
 ingredients_open.addEventListener("click", (e) => {
-    ingredients_div.classList.toggle("none");
+    toogle_class(ingredients_open, "selected");
+    toogle_class(ingredients_div, "none");
 });
+
+function toogle_class(item, class_name) {
+    if (!item.classList.contains(class_name)) {
+        item.classList.add(class_name);
+    } else {
+        item.classList.remove(class_name);
+    }
+}
 
 // VYHLEDAVANI PODLE JMENA
 search.addEventListener("input", (e) => {
-    for (const k of data_list) {
-        if (
-            !k.childNodes[1].textContent
-                .toLowerCase()
-                .includes(search.value.toLowerCase())
-        ) {
-            k.setAttribute("class", "cocktail none");
-        } else {
-            k.setAttribute("class", "cocktail");
+    if (search.value !== "") {
+        searching = true;
+    } else {
+        searching = false;
+    }
+
+    if (!filtering) {
+        for (const k of data_list) {
+            if (
+                !k.childNodes[1].textContent
+                    .toLowerCase()
+                    .includes(search.value.toLowerCase())
+            ) {
+                k.classList.add("none");
+            } else {
+                k.classList.remove("none");
+            }
         }
+    } else {
+        search_and_filter();
     }
 });
 
 // APLIKACE FILTRU
 apply_button.addEventListener("click", () => {
+    toogle_class(ingredients_open, "selected");
     ingredients_search.value = "";
     find_ingredients();
-    ingredients_div.classList.toggle("none");
+    toogle_class(ingredients_div, "none");
     search_by_ingredients();
 });
 
@@ -90,12 +111,39 @@ function find_ingredients() {
 
 // VYHLEDAVANI POMOCI INGREDIENCI
 function search_by_ingredients() {
+    if (filter_ingredients.length === 0) {
+        filtering = false;
+    } else {
+        filtering = true;
+    }
+
+    if (!searching) {
+        for (const div of data_list) {
+            const ingredients_in_div = div.dataset.ingredients.split(",");
+            if (!check_if_subarray(ingredients_in_div)) {
+                div.setAttribute("class", "cocktail none");
+            } else {
+                div.setAttribute("class", "cocktail");
+            }
+        }
+    } else {
+        search_and_filter();
+    }
+}
+
+// VYHLEDAVANI POMOCI INGREDIENCI A JMENA
+function search_and_filter() {
     for (const div of data_list) {
         const ingredients_in_div = div.dataset.ingredients.split(",");
-        if (!check_if_subarray(ingredients_in_div)) {
-            div.setAttribute("class", "cocktail none");
+        if (
+            !check_if_subarray(ingredients_in_div) ||
+            !div.childNodes[1].textContent
+                .toLowerCase()
+                .includes(search.value.toLowerCase())
+        ) {
+            div.classList.add("none");
         } else {
-            div.setAttribute("class", "cocktail");
+            div.classList.remove("none");
         }
     }
 }
