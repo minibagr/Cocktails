@@ -3,6 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
         <link rel="stylesheet" href="style.css" />
         <title>Cocktails</title>
     </head>
@@ -18,7 +22,7 @@
                 />
             </div>
             <div id="filters">
-                <p id="ingredients">Ingredients</p>
+                <p id="ingredients" class="button">Ingredients</p>
                 <div id="ingredients-div" class="none">
                     <div id="ingredients-finding">
                         <input
@@ -32,11 +36,18 @@
                     </div>
                 </div>
             </div>
+            <a class="button" href="https://minibagr.github.io/Portfolio/"
+                >Portfolio</a
+            >
         </nav>
         <div id="loading">
             <h1 id="loading-circle"></h1>
         </div>
-        <div id="arrow-up"></div>
+        <a href="#"
+            ><span id="arrow-up" class="material-symbols-outlined none">
+                arrow_upward
+            </span></a
+        >
         <div id="data"></div>
         <script type="module" src="script.js"></script>
     </body>

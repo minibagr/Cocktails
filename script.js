@@ -7,6 +7,7 @@ const ingredients_div = document.getElementById("ingredients-div");
 const ingredients_open = document.getElementById("ingredients");
 const ingredients_search = document.getElementById("search-ingredients");
 const apply_button = document.getElementById("apply");
+const arrow_up = document.getElementById("arrow-up");
 
 let ingredients_list = [];
 let ingredients_list_lower = [];
@@ -43,6 +44,24 @@ let alphabet = [
 
 let searching = false;
 let filtering = false;
+
+// SHOW ARROW ON SCROLL
+window.addEventListener("scroll", (e) => {
+    let scrollTop =
+        window.scrollY !== undefined
+            ? window.scrollY
+            : (
+                  document.documentElement ||
+                  document.body.parentNode ||
+                  document.body
+              ).scrollTop;
+
+    if (scrollTop >= 1000) {
+        arrow_up.classList.remove("none");
+    } else {
+        arrow_up.classList.add("none");
+    }
+});
 
 // ZOBRAZENI FILTRU PO KLIKNUTI NA TLACITKO INGREDIENCE A NAOPAK
 ingredients_open.addEventListener("click", (e) => {
@@ -176,7 +195,7 @@ function add_ingredient_to_filter(ingredient) {
 }
 
 // VYTVORENI HTML ELEMENTU PRO INGREDIENCE
-function create_ingredients() {
+async function create_ingredients() {
     ingredients_list_lower = ingredients_list_lower
         .sort()
         .splice(1, ingredients_list_lower.length);

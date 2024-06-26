@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -50,11 +51,17 @@ nav {
 
 /* FILTERS */
 /* INGREDIENTS */
-#ingredients {
+.button {
     background-color: var(--nav-color);
     padding: 8px 10px;
     border-radius: 10px;
     cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: var(--hover-color);
 }
 
 #ingredients.selected {
@@ -206,6 +213,21 @@ nav {
     opacity: 0.7;
 }
 
+/* ARROW */
+#arrow-up {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background-color: var(--nav-color);
+    border-radius: 50%;
+    padding: 1rem;
+    color: black;
+}
+
+#arrow-up:hover {
+    background-color: var(--hover-color);
+}
+
 @media only screen and (max-width: 600px) {
     #ingredients-finding {
         flex-flow: column wrap;
@@ -227,5 +249,10 @@ nav {
     #data h1 {
         width: 100px;
         font-size: 1rem;
+    }
+
+    #arrow-up {
+        left: 1rem;
+        padding: 0.2rem;
     }
 }
